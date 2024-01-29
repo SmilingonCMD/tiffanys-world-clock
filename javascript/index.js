@@ -24,6 +24,18 @@ function updateTime() {
       "h:mm:ss [<small>]A[</small>]"
     );
   }
+  let copenhagenElement = document.querySelector("#copenhagen");
+  if (copenhagenElement) {
+    let copenhagenDateElement = copenhagenElement.querySelector(".date");
+    let copenhagenTimeElement = copenhagenElement.querySelector(".time");
+    let copenhagenTime = moment().tz("Europe/Copenhagen");
+
+    copenhagenDateElement.innerHTML = copenhagenTime.format("MMMM Do YYYY");
+
+    copenhagenTimeElement.innerHTML = copenhagenTime.format(
+      "h:mm:ss [<small>]A[</small>]"
+    );
+  }
 }
 
 function updateCity(event) {
