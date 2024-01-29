@@ -1,29 +1,36 @@
 function updateTime() {
   let losAngelesElement = document.querySelector("#los-angeles");
-  let losAngelesDateElement = losAngelesElement.querySelector(".date");
-  let losAngelesTimeElement = losAngelesElement.querySelector(".time");
+  if (losAngelesElement) {
+    let losAngelesDateElement = losAngelesElement.querySelector(".date");
+    let losAngelesTimeElement = losAngelesElement.querySelector(".time");
+    let losAngelesTime = moment().tz("America/Los_Angeles");
 
-  losAngelesDateElement.innerHTML = moment()
-    .tz("America/Los_Angeles")
-    .format("MMMM Do YYYY");
+    losAngelesDateElement.innerHTML = losAngelesTime.format("MMMM Do YYYY");
 
-  losAngelesTimeElement.innerHTML = moment()
-    .tz("America/Los_Angeles")
-    .format("h:mm:ss [<small>]A[</small>]");
+    losAngelesTimeElement.innerHTML = losAngelesTime.format(
+      "h:mm:ss [<small>]A[</small>]"
+    );
+  }
 
   let tokyoElement = document.querySelector("#tokyo");
-  let tokyoDateElement = tokyoElement.querySelector(".date");
-  let tokyoTimeElement = tokyoElement.querySelector(".time");
+  if (tokyoElement) {
+    let tokyoDateElement = tokyoElement.querySelector(".date");
+    let tokyoTimeElement = tokyoElement.querySelector(".time");
+    let tokyoTime = moment().tz("Asia/Tokyo");
 
-  tokyoDateElement.innerHTML = moment().tz("Asia/Tokyo").format("MMMM Do YYYY");
+    tokyoDateElement.innerHTML = tokyoTime.format("MMMM Do YYYY");
 
-  tokyoTimeElement.innerHTML = moment()
-    .tz("Asia/Tokyo")
-    .format("h:mm:ss [<small>]A[</small>]");
+    tokyoTimeElement.innerHTML = tokyoTime.format(
+      "h:mm:ss [<small>]A[</small>]"
+    );
+  }
 }
 
 function updateCity(event) {
   let cityTimeZone = event.target.value;
+  if (cityTimeZone === "current") {
+    cityTimeZone = moment.tz.guess();
+  }
   let cityName = cityTimeZone.replace("_", " ").split("/")[1];
   let cityTime = moment().tz(cityTimeZone);
 
@@ -37,6 +44,7 @@ function updateCity(event) {
           <div class="time">${cityTime.format(
             "h:mm:ss "
           )}<small>${cityTime.format("A")}</small></div>
+          </div>
         `;
 }
 
